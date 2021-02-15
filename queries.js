@@ -35,7 +35,7 @@ const getVersions = (request, response) => {
 const getPSFormData = (request, response) => {
     const sex = request.params.sex
 
-    pool.query('SELECT * FROM view_psform WHERE sex = $1', [sex], (error, results) => {
+    pool.query('SELECT * FROM view_psform_en WHERE sex = $1', [sex], (error, results) => {
         if (error) {
             throw error
         }
