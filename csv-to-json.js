@@ -1,13 +1,21 @@
 // Reading the file using default 
 // fs npm package  
 const fs = require("fs");
+const dotenv = require('dotenv');
+dotenv.config();
+
+const PUBLIC_URL = process.env.PUBLIC_URL
+const STORES_SHORT_CSV_PATH = process.env.STORES_SHORT_CSV_PATH
+const STORES_LONG_CSV_PATH = process.env.STORES_LONG_CSV_PATH
+const STORES_SHORT_JSON_PATH = process.env.STORES_SHORT_JSON_PATH
+const STORES_LONG_JSON_PATH = process.env.STORES_LONG_JSON_PATH
 
 const convertShortStores = (request, response) => {
-    response.json(convertStores('./public/csv/stores-short.csv', './public/json/stores-short.json'))
+    response.json(convertStores(STORES_SHORT_CSV_PATH, STORES_SHORT_JSON_PATH))
 }
 
 const convertLongStores = (request, response) => {
-    response.json(convertStores('./public/csv/stores-long.csv', './public/json/stores-long.json'))
+    response.json(convertStores(STORES_LONG_CSV_PATH, STORES_LONG_JSON_PATH))
 }
 
 const convertStores = (inputFilePath, outputFilePath) => {
@@ -54,7 +62,7 @@ const convertStores = (inputFilePath, outputFilePath) => {
                     "newPrice": parseInt(valuesArray[3]),
                     "discount": parseFloat(valuesArray[4]),
                     "numOfStars": parseInt(valuesArray[5]),
-                    "img": imgParsed
+                    "img": PUBLIC_URL + "img/" + imgParsed
                 })
             }
 

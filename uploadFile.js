@@ -1,4 +1,12 @@
 const task = require('./csv-to-json')
+const dotenv = require('dotenv');
+dotenv.config();
+
+const STORES_SHORT_CSV_PATH = process.env.STORES_SHORT_CSV_PATH
+const STORES_LONG_CSV_PATH = process.env.STORES_LONG_CSV_PATH
+const STORES_SHORT_JSON_PATH = process.env.STORES_SHORT_JSON_PATH
+const STORES_LONG_JSON_PATH = process.env.STORES_LONG_JSON_PATH
+const CSV_UPLOAD_FILES_PATH = './public/csv/'
 
 const uploadStores = (req, res) => {
     if (!req.files || Object.keys(req.files).length === 0) {
@@ -46,7 +54,7 @@ const uploadStores = (req, res) => {
         let store = req.files.stores[key];
 
         //move photo to uploads directory
-        store.mv('./public/csv/' + store.name);
+        store.mv(CSV_UPLOAD_FILES_PATH + store.name);
 
         //push file details
         data.push({
@@ -64,8 +72,8 @@ const uploadStores = (req, res) => {
     });
 
     //Update JSON files
-    task.convertStores('./public/csv/stores-short.csv', './public/json/stores-short.json')
-    task.convertStores('./public/csv/stores-long.csv', './public/json/stores-long.json')
+    task.convertStores(STORES_SHORT_CSV_PATH, STORES_SHORT_JSON_PATH)
+    task.convertStores(STORES_LONG_CSV_PATH, STORES_LONG_JSON_PATH)
 }
 
 module.exports = {
