@@ -35,7 +35,7 @@ const uploadStores = (req, res) => {
         }
     }
 
-   //CLEAN DIRECTORIES BEFORE CREATE NEW ONES
+    //CLEAN DIRECTORIES BEFORE CREATE NEW ONES
     try {
         var file1 = "./" + CSV_UPLOAD_FILES_PATH + "stores-long.csv"
         var file2 = "./" + CSV_UPLOAD_FILES_PATH + "stores-short.csv"
@@ -57,7 +57,7 @@ const uploadStores = (req, res) => {
         console.error(err)
     }
 
-    
+
     //Upload new files
     for (let key of Object.keys(req.files.stores)) {
         let store = req.files.stores[key];
@@ -80,13 +80,13 @@ const uploadStores = (req, res) => {
 
         //move photo to uploads directory
         store.mv(CSV_UPLOAD_FILES_PATH + store.name);
-        
-	//push file details
+
+        //push file details
         data.push({
-            	name: store.name,
-	    	path: CSV_UPLOAD_FILES_PATH + store.name,
-            	mimetype: store.mimetype,
-            	size: store.size
+            name: store.name,
+            path: CSV_UPLOAD_FILES_PATH + store.name,
+            mimetype: store.mimetype,
+            size: store.size
         });
     }
 
@@ -96,6 +96,7 @@ const uploadStores = (req, res) => {
         message: 'Files are uploaded',
         data: data
     });
+
 
     //Update JSON files
     task.convertStores(STORES_SHORT_CSV_PATH, STORES_SHORT_JSON_PATH)
