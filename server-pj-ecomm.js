@@ -19,7 +19,9 @@ const port = process.env.PORT || 5000;
 app.use(compression())
 app.use(cors()) //RESOLVE! Request header field Authorization is not allowed by Access-Control-Allow-Headers in preflight response
 // default options
-app.use(fileUpload());
+app.use(fileUpload({
+	debug:true
+}));
 app.use(express.json())
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
