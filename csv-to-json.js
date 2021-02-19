@@ -58,8 +58,8 @@ const convertStores = (inputFilePath, outputFilePath) => {
                 stores[storeIndex].products.push({
                     "productNumber": parseInt(valuesArray[0]),
                     "isBargain": isBargain,
-                    "oldPrice": valuesArray[2],
-                    "newPrice": parseInt(valuesArray[3]),
+                    "oldPrice": parseInt(valuesArray[2]),
+                    "newPrice": parseFloat(valuesArray[3]),
                     "discount": parseFloat(valuesArray[4]),
                     "numOfStars": parseInt(valuesArray[5]),
                     "img": PUBLIC_URL + "img/" + imgParsed
