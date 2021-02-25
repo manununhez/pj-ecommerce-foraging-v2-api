@@ -24,6 +24,7 @@ const convertStores = (inputFilePath, outputFilePath) => {
 
     var storeIndex = -1
     var stores = []
+    var feedback = []
 
     //This will read the file.
     fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
@@ -40,14 +41,17 @@ const convertStores = (inputFilePath, outputFilePath) => {
             //contains values which are separated by a comma in a line.
             var valuesArray = dataArray[i].split(",");
 
-            // console.log(valuesArray)
-            if (valuesArray[3] === '' && valuesArray[4] === '' && valuesArray[5] === '' && valuesArray[6] === '\r') {
+            if (valuesArray[1] === '' && valuesArray[2] === '' && valuesArray[3] === '' && valuesArray[4] === '' && valuesArray[5] === '' && valuesArray[6] === '\r') {
+                feedback.push(valuesArray[0])
+                // console.log(valuesArray)
+            } else if (valuesArray[3] === '' && valuesArray[4] === '' && valuesArray[5] === '' && valuesArray[6] === '\r') {
                 storeIndex++;
                 //we save stores
                 stores.push({
                     "storeNumber": parseInt(valuesArray[0]),
                     "bargainsNumber": parseInt(valuesArray[1]),
                     "delay": parseInt(valuesArray[2]),
+                    "showFeedback": feedback[storeIndex] === "Feedback ON" ? true : false,
                     "products": []
                 })
             } else {
