@@ -21,10 +21,10 @@ app.use(cors()) //RESOLVE! Request header field Authorization is not allowed by 
 // default options
 app.use(fileUpload()); //{debug: true}
 app.use(express.json())
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    next();
-});
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     next();
+// });
 /* this line tells Express to use the public folder as our static folder from which we can serve static files*/
 app.use('/img', express.static('public/img'))
 app.use('/csv', express.static('public/csv'))
