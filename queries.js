@@ -66,6 +66,18 @@ const createPSForm = (request, response) => {
     })
 }
 
+const createUserBargains = (request, response) => {
+    const data = request.body
+
+    pool.query(format('INSERT INTO results_user_bargains (user_id, store_number, enter_store_timestamp, leave_store_timestamp, products_seen, last_product_displayed, bargain_taken_number, bargain_shown_number) VALUES %L Returning *', data), (error, results) => {
+        if (error) {
+            throw error
+        }
+        // console.log(`UserPSForm added ${results.rowCount} rows`)
+        response.status(201).send(`UserBargains added ${results.rowCount} rows`)
+    })
+}
+
 const createAuctionBids = (request, response) => {
     const data = request.body
 
@@ -163,5 +175,6 @@ module.exports = {
     createVisualPattern,
     createUserInfo,
     createUserLogTime,
-    createUserGeneraldata
+    createUserGeneraldata,
+    createUserBargains
 }

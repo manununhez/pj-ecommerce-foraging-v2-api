@@ -56,3 +56,4 @@ app.post("/visualpattern", db.createVisualPattern);
 app.post("/userinfo", db.createUserInfo);
 app.post("/userlogtime", db.createUserLogTime);
 app.post("/usergeneraldata", db.createUserGeneraldata);
+app.post("/userbargain", db.createUserBargains);
