@@ -69,7 +69,7 @@ const createPSForm = (request, response) => {
 const createUserBargains = (request, response) => {
     const data = request.body
 
-    pool.query(format('INSERT INTO results_user_bargains (user_id, store_number, enter_store_timestamp, leave_store_timestamp, products_seen, last_product_displayed, bargain_taken_number, bargain_shown_number) VALUES %L Returning *', data), (error, results) => {
+    pool.query(format('INSERT INTO results_user_bargains (user_id, store_number, type_task, enter_store_timestamp, leave_store_timestamp, products_seen, last_product_displayed, bargain_taken_number, bargain_shown_number) VALUES %L Returning *', data), (error, results) => {
         if (error) {
             throw error
         }
