@@ -54,6 +54,15 @@ const getAppTextData = (request, response) => {
     })
 }
 
+const getBargainsResult = (request, response) => {
+    pool.query('SELECT * from view_bargain_results_complete', (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
 const createPSForm = (request, response) => {
     const data = request.body
 
@@ -170,6 +179,7 @@ module.exports = {
     getVersions,
     getPSFormData,
     getAppTextData,
+    getBargainsResult,
     createPSForm,
     createAuctionBids,
     createVisualPattern,
