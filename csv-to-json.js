@@ -56,7 +56,7 @@ const convertStores = (inputFilePath, outputFilePath) => {
                 })
             } else {
                 var img = valuesArray[6].trim()
-                var imgParsed = img.substring(0, img.length - 1) //we remove the final /r
+                var imgParsed = img.substring(0, img.length)
                 var isBargain = (valuesArray[1].trim() === "B")
 
                 stores[storeIndex].products.push({
