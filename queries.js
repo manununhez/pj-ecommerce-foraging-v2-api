@@ -52,7 +52,7 @@ const getPSFormResults = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-	fastcsv
+        fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
             .on("finish", function () {
@@ -77,7 +77,16 @@ const getBargainsResult = (request, response) => {
         if (error) {
             throw error
         }
-        response.status(200).json(results.rows)
+
+        const jsonData = JSON.parse(JSON.stringify(results.rows));
+
+        response.header('Content-Type', 'text/csv');
+        fastcsv
+            .write(jsonData, { headers: true })
+            .pipe(response)
+            .on("finish", function () {
+                console.log("Write to CSV completed successfully!");
+            });
     })
 }
 
