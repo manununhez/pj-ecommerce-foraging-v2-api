@@ -1,6 +1,9 @@
 const dotenv = require('dotenv');
 const Pool = require('pg').Pool //Pool manages a dynamic list/pool of Client objects, with automatic re-connect functionality
 const format = require('pg-format');
+const fastcsv = require("fast-csv");
+const fs = require("fs");
+const ws = fs.createWriteStream("survey_results.csv");
 
 dotenv.config();
 
@@ -40,6 +43,28 @@ const getPSFormData = (request, response) => {
             throw error
         }
         response.status(200).json(results.rows)
+    })
+}
+
+const getPSFormResults = (request, response) => {
+    pool.query('SELECT user_id, question_id, answer, created_at FROM results_user_psform', (error, results) => {
+        if (error) {
+            throw error
+        }
+        const jsonData = JSON.parse(JSON.stringify(results.rows));
+
+        fastcsv
+            .write(jsonData, { headers: true })
+            .pipe(ws)
+            .on("finish", function () {
+                console.log("Write to survey_results.csv successfully!");
+                response.header('Content-Type', 'text/csv');
+                response.attachment("survey_results.csv");
+                response.send(csv)
+            });
+
+
+        // response.status(200).json(results.rows)
     })
 }
 
@@ -180,6 +205,7 @@ module.exports = {
     getPSFormData,
     getAppTextData,
     getBargainsResult,
+    getPSFormResults,
     createPSForm,
     createAuctionBids,
     createVisualPattern,
