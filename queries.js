@@ -44,23 +44,6 @@ const getPSFormData = (request, response) => {
     })
 }
 
-const getPSFormResults = (request, response) => {
-    pool.query('SELECT user_id, question_id, answer, created_at FROM results_user_psform', (error, results) => {
-        if (error) {
-            throw error
-        }
-        const jsonData = JSON.parse(JSON.stringify(results.rows));
-
-        response.header('Content-Type', 'text/csv');
-        fastcsv
-            .write(jsonData, { headers: true })
-            .pipe(response)
-            .on("finish", function () {
-                console.log("Write to CSV completed successfully!");
-            });
-    })
-}
-
 const getAppTextData = (request, response) => {
     const sex = request.params.sex
 
@@ -78,6 +61,40 @@ const getBargainsResult = (request, response) => {
             throw error
         }
 
+        const jsonData = JSON.parse(JSON.stringify(results.rows));
+
+        response.header('Content-Type', 'text/csv');
+        fastcsv
+            .write(jsonData, { headers: true })
+            .pipe(response)
+            .on("finish", function () {
+                console.log("Write to CSV completed successfully!");
+            });
+    })
+}
+
+const getPSFormResults = (request, response) => {
+    pool.query('SELECT * FROM view_psform_results', (error, results) => {
+        if (error) {
+            throw error
+        }
+        const jsonData = JSON.parse(JSON.stringify(results.rows));
+
+        response.header('Content-Type', 'text/csv');
+        fastcsv
+            .write(jsonData, { headers: true })
+            .pipe(response)
+            .on("finish", function () {
+                console.log("Write to CSV completed successfully!");
+            });
+    })
+}
+
+const getUserFormResults = (request, response) => {
+    pool.query('SELECT * FROM view_userform_results', (error, results) => {
+        if (error) {
+            throw error
+        }
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
@@ -208,6 +225,7 @@ module.exports = {
     getAppTextData,
     getBargainsResult,
     getPSFormResults,
+    getUserFormResults,
     createPSForm,
     createAuctionBids,
     createVisualPattern,
