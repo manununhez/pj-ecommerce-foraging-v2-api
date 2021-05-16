@@ -64,6 +64,7 @@ const getBargainsResult = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
+	response.attachment('bargains_result.csv');
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -81,6 +82,7 @@ const getPSFormResults = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
+	response.attachment('survey_result.csv');
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -98,6 +100,7 @@ const getUserFormResults = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
+	response.attachment('demographic_result.csv');
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
