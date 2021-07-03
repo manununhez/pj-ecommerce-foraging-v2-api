@@ -41,7 +41,7 @@ app.get('/psform/:sex', db.getPSFormData)
 app.get('/apptext/:sex', db.getAppTextData)
 app.get('/inituserdata/:version', db.getUserInitialData)
 app.get('/bargains-result', db.getBargainsResult)
-app.get('/bargains-result-per-store', db.getBargainsResult)
+app.get('/bargains-result-per-store', db.getBargainsResultPerStore)
 app.get('/survey-result', db.getPSFormResults)
 app.get('/demographic-result', db.getUserFormResults)
 
