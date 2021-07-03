@@ -44,6 +44,7 @@ app.get('/bargains-result', db.getBargainsResult)
 app.get('/bargains-result-per-store', db.getBargainsResultPerStore)
 app.get('/survey-result', db.getPSFormResults)
 app.get('/demographic-result', db.getUserFormResults)
+app.get('/memory-result', db.getMemoryTaskResult)
 
 app.get('/convert-short-stores', task.convertShortStores)
 app.get('/convert-long-stores', task.convertLongStores)

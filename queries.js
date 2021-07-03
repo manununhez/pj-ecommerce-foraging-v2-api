@@ -55,6 +55,25 @@ const getAppTextData = (request, response) => {
     })
 }
 
+const getMemoryTaskResult = (request, response) => {
+    pool.query('SELECT * from view_visual_pattern_results', (error, results) => {
+        if (error) {
+            throw error
+        }
+
+        const jsonData = JSON.parse(JSON.stringify(results.rows));
+
+        response.header('Content-Type', 'text/csv');
+        response.attachment('memory_task_result.csv');
+        fastcsv
+            .write(jsonData, { headers: true })
+            .pipe(response)
+            .on("finish", function () {
+                console.log("Write to CSV completed successfully!");
+            });
+    })
+}
+
 const getBargainsResult = (request, response) => {
     pool.query('SELECT * from view_bargain_results_complete', (error, results) => {
         if (error) {
@@ -245,6 +264,7 @@ module.exports = {
     getVersions,
     getPSFormData,
     getAppTextData,
+    getMemoryTaskResult,
     getBargainsResult,
     getBargainsResultPerStore,
     getPSFormResults,
