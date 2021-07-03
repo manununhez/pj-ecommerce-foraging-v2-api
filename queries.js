@@ -64,7 +64,26 @@ const getBargainsResult = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-	response.attachment('bargains_result.csv');
+        response.attachment('bargains_result.csv');
+        fastcsv
+            .write(jsonData, { headers: true })
+            .pipe(response)
+            .on("finish", function () {
+                console.log("Write to CSV completed successfully!");
+            });
+    })
+}
+
+const getBargainsResultPerStore = (request, response) => {
+    pool.query('SELECT * from view_bargain_results_per_store', (error, results) => {
+        if (error) {
+            throw error
+        }
+
+        const jsonData = JSON.parse(JSON.stringify(results.rows));
+
+        response.header('Content-Type', 'text/csv');
+        response.attachment('bargains_result_per_store.csv');
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -82,7 +101,7 @@ const getPSFormResults = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-	response.attachment('survey_result.csv');
+        response.attachment('survey_result.csv');
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -100,7 +119,7 @@ const getUserFormResults = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-	response.attachment('demographic_result.csv');
+        response.attachment('demographic_result.csv');
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -227,6 +246,7 @@ module.exports = {
     getPSFormData,
     getAppTextData,
     getBargainsResult,
+    getBargainsResultPerStore,
     getPSFormResults,
     getUserFormResults,
     createPSForm,
