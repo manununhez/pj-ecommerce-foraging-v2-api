@@ -34,7 +34,7 @@ const getVersions = (request, response) => {
 }
 
 const getUsers = (request, response) => {
-    pool.query('SELECT * FROM view_userform_results', (error, results) => {
+    pool.query('SELECT * FROM view_userform_results order by created_at desc', (error, results) => {
         if (error) {
             throw error
         }
