@@ -45,6 +45,7 @@ app.get('/bargains-result-per-store', db.getBargainsResultPerStore)
 app.get('/survey-result', db.getPSFormResults)
 app.get('/demographic-result', db.getUserFormResults)
 app.get('/memory-result', db.getMemoryTaskResult)
+app.get('/users', db.getUsers)
 
 app.get('/bargains-result/:userId', db.getBargainsResultPerUser)
 app.get('/bargains-result-per-store/:userId', db.getBargainsResultPerStorePerUser)

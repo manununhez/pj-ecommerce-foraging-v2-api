@@ -33,6 +33,15 @@ const getVersions = (request, response) => {
     })
 }
 
+const getUsers = (request, response) => {
+    pool.query('SELECT * FROM view_userform_results', (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
 const getPSFormData = (request, response) => {
     const sex = request.params.sex
 
@@ -363,6 +372,7 @@ const createUserGeneraldata = (request, response) => {
 }
 
 module.exports = {
+    getUsers,
     getUserInitialData,
     getVersions,
     getPSFormData,
