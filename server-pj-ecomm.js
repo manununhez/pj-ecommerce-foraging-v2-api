@@ -46,6 +46,12 @@ app.get('/survey-result', db.getPSFormResults)
 app.get('/demographic-result', db.getUserFormResults)
 app.get('/memory-result', db.getMemoryTaskResult)
 
+app.get('/bargains-result/:userId', db.getBargainsResultPerUser)
+app.get('/bargains-result-per-store/:userId', db.getBargainsResultPerStorePerUser)
+app.get('/survey-result/:userId', db.getPSFormResultsPerUser)
+app.get('/demographic-result/:userId', db.getUserFormResultsPerUser)
+app.get('/memory-result/:userId', db.getMemoryTaskResultPerUser)
+
 app.get('/convert-short-stores', task.convertShortStores)
 app.get('/convert-long-stores', task.convertLongStores)
 

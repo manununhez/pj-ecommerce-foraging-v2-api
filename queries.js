@@ -74,8 +74,50 @@ const getMemoryTaskResult = (request, response) => {
     })
 }
 
+const getMemoryTaskResultPerUser = (request, response) => {
+    const userId = request.params.userId
+
+    pool.query('SELECT * from view_visual_pattern_results where user_id = $1', [userId], (error, results) => {
+        if (error) {
+            throw error
+        }
+
+        const jsonData = JSON.parse(JSON.stringify(results.rows));
+
+        response.header('Content-Type', 'text/csv');
+        response.attachment('memory_task_result.csv');
+        fastcsv
+            .write(jsonData, { headers: true })
+            .pipe(response)
+            .on("finish", function () {
+                console.log("Write to CSV completed successfully!");
+            });
+    })
+}
+
 const getBargainsResult = (request, response) => {
     pool.query('SELECT * from view_bargain_results_complete', (error, results) => {
+        if (error) {
+            throw error
+        }
+
+        const jsonData = JSON.parse(JSON.stringify(results.rows));
+
+        response.header('Content-Type', 'text/csv');
+        response.attachment('bargains_result.csv');
+        fastcsv
+            .write(jsonData, { headers: true })
+            .pipe(response)
+            .on("finish", function () {
+                console.log("Write to CSV completed successfully!");
+            });
+    })
+}
+
+const getBargainsResultPerUser = (request, response) => {
+    const userId = request.params.userId
+
+    pool.query('SELECT * from view_bargain_results_complete where user_id = $1', [userId], (error, results) => {
         if (error) {
             throw error
         }
@@ -112,6 +154,27 @@ const getBargainsResultPerStore = (request, response) => {
     })
 }
 
+const getBargainsResultPerStorePerUser = (request, response) => {
+    const userId = request.params.userId
+
+    pool.query('SELECT * from view_bargain_results_per_store where user_id = $1', [userId], (error, results) => {
+        if (error) {
+            throw error
+        }
+
+        const jsonData = JSON.parse(JSON.stringify(results.rows));
+
+        response.header('Content-Type', 'text/csv');
+        response.attachment('bargains_result_per_store.csv');
+        fastcsv
+            .write(jsonData, { headers: true })
+            .pipe(response)
+            .on("finish", function () {
+                console.log("Write to CSV completed successfully!");
+            });
+    })
+}
+
 const getPSFormResults = (request, response) => {
     pool.query('SELECT * FROM view_psform_results', (error, results) => {
         if (error) {
@@ -130,8 +193,48 @@ const getPSFormResults = (request, response) => {
     })
 }
 
+const getPSFormResultsPerUser = (request, response) => {
+    const userId = request.params.userId
+
+    pool.query('SELECT * FROM view_psform_results where user_id = $1', [userId], (error, results) => {
+        if (error) {
+            throw error
+        }
+        const jsonData = JSON.parse(JSON.stringify(results.rows));
+
+        response.header('Content-Type', 'text/csv');
+        response.attachment('survey_result.csv');
+        fastcsv
+            .write(jsonData, { headers: true })
+            .pipe(response)
+            .on("finish", function () {
+                console.log("Write to CSV completed successfully!");
+            });
+    })
+}
+
 const getUserFormResults = (request, response) => {
     pool.query('SELECT * FROM view_userform_results', (error, results) => {
+        if (error) {
+            throw error
+        }
+        const jsonData = JSON.parse(JSON.stringify(results.rows));
+
+        response.header('Content-Type', 'text/csv');
+        response.attachment('demographic_result.csv');
+        fastcsv
+            .write(jsonData, { headers: true })
+            .pipe(response)
+            .on("finish", function () {
+                console.log("Write to CSV completed successfully!");
+            });
+    })
+}
+
+const getUserFormResultsPerUser = (request, response) => {
+    const userId = request.params.userId
+
+    pool.query('SELECT * FROM view_userform_results where user_id = $1', [userId], (error, results) => {
         if (error) {
             throw error
         }
@@ -269,6 +372,11 @@ module.exports = {
     getBargainsResultPerStore,
     getPSFormResults,
     getUserFormResults,
+    getBargainsResultPerUser,
+    getBargainsResultPerStorePerUser,
+    getPSFormResultsPerUser,
+    getUserFormResultsPerUser,
+    getMemoryTaskResultPerUser,
     createPSForm,
     createAuctionBids,
     createVisualPattern,
