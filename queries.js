@@ -94,7 +94,7 @@ const getMemoryTaskResultPerUser = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('memory_task_result.csv');
+        response.attachment('memory_task_result_' + userId + '.csv');
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -134,7 +134,7 @@ const getBargainsResultPerUser = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('bargains_result.csv');
+        response.attachment('bargains_result_' + userId + '.csv');
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -174,7 +174,7 @@ const getBargainsResultPerStorePerUser = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('bargains_result_per_store.csv');
+        response.attachment('bargains_result_per_store_' + userId + '.csv');
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -212,7 +212,7 @@ const getPSFormResultsPerUser = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('survey_result.csv');
+        response.attachment('survey_result_' + userId + '.csv');
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -250,7 +250,7 @@ const getUserFormResultsPerUser = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('demographic_result.csv');
+        response.attachment('demographic_result_' + userId + '.csv');
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
