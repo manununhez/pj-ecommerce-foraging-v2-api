@@ -34,7 +34,7 @@ const getVersions = (request, response) => {
 }
 
 const getUsers = (request, response) => {
-    pool.query('SELECT * FROM view_userform_results order by created_at desc', (error, results) => {
+    pool.query('SELECT * FROM view_users', (error, results) => {
         if (error) {
             throw error
         }
@@ -65,7 +65,16 @@ const getAppTextData = (request, response) => {
 }
 
 const getMemoryTaskResult = (request, response) => {
-    pool.query('SELECT * from view_visual_pattern_results', (error, results) => {
+    const resultsType = request.params.type
+    let tableName = ""
+
+    if (resultsType == "c")
+        tableName = "view_visual_pattern_results"
+    else if (resultsType == "p")
+        tableName = "view_visual_pattern_partial_results"
+    else return
+
+    pool.query('SELECT * from $1', [tableName], (error, results) => {
         if (error) {
             throw error
         }
@@ -85,8 +94,16 @@ const getMemoryTaskResult = (request, response) => {
 
 const getMemoryTaskResultPerUser = (request, response) => {
     const userId = request.params.userId
+    const resultsType = request.params.type
+    let tableName = ""
 
-    pool.query('SELECT * from view_visual_pattern_results where user_id = $1', [userId], (error, results) => {
+    if (resultsType == "c")
+        tableName = "view_visual_pattern_results"
+    else if (resultsType == "p")
+        tableName = "view_visual_pattern_partial_results"
+    else return
+
+    pool.query('SELECT * from $1 where user_id = $2', [tableName, userId], (error, results) => {
         if (error) {
             throw error
         }
@@ -105,7 +122,16 @@ const getMemoryTaskResultPerUser = (request, response) => {
 }
 
 const getBargainsResult = (request, response) => {
-    pool.query('SELECT * from view_bargain_results_complete', (error, results) => {
+    const resultsType = request.params.type
+    let tableName = ""
+
+    if (resultsType == "c")
+        tableName = "view_bargain_results_complete"
+    else if (resultsType == "p")
+        tableName = "view_bargain_partial_results_complete"
+    else return
+
+    pool.query('SELECT * from $1', [tableName], (error, results) => {
         if (error) {
             throw error
         }
@@ -125,8 +151,16 @@ const getBargainsResult = (request, response) => {
 
 const getBargainsResultPerUser = (request, response) => {
     const userId = request.params.userId
+    const resultsType = request.params.type
+    let tableName = ""
 
-    pool.query('SELECT * from view_bargain_results_complete where user_id = $1', [userId], (error, results) => {
+    if (resultsType == "c")
+        tableName = "view_bargain_results_complete"
+    else if (resultsType == "p")
+        tableName = "view_bargain_partial_results_complete"
+    else return
+
+    pool.query('SELECT * from $1 where user_id = $2', [tableName, userId], (error, results) => {
         if (error) {
             throw error
         }
@@ -145,7 +179,16 @@ const getBargainsResultPerUser = (request, response) => {
 }
 
 const getBargainsResultPerStore = (request, response) => {
-    pool.query('SELECT * from view_bargain_results_per_store', (error, results) => {
+    const resultsType = request.params.type
+    let tableName = ""
+
+    if (resultsType == "c")
+        tableName = "view_bargain_results_per_store"
+    else if (resultsType == "p")
+        tableName = "view_bargain_partial_results_per_store"
+    else return
+
+    pool.query('SELECT * from $1', [tableName], (error, results) => {
         if (error) {
             throw error
         }
@@ -165,8 +208,16 @@ const getBargainsResultPerStore = (request, response) => {
 
 const getBargainsResultPerStorePerUser = (request, response) => {
     const userId = request.params.userId
+    const resultsType = request.params.type
+    let tableName = ""
 
-    pool.query('SELECT * from view_bargain_results_per_store where user_id = $1', [userId], (error, results) => {
+    if (resultsType == "c")
+        tableName = "view_bargain_results_per_store"
+    else if (resultsType == "p")
+        tableName = "view_bargain_partial_results_per_store"
+    else return
+
+    pool.query('SELECT * from $1 where user_id = $2', [tableName, userId], (error, results) => {
         if (error) {
             throw error
         }
@@ -185,7 +236,16 @@ const getBargainsResultPerStorePerUser = (request, response) => {
 }
 
 const getPSFormResults = (request, response) => {
-    pool.query('SELECT * FROM view_psform_results', (error, results) => {
+    const resultsType = request.params.type
+    let tableName = ""
+
+    if (resultsType == "c")
+        tableName = "view_psform_results"
+    else if (resultsType == "p")
+        tableName = "view_psform_partial_results"
+    else return
+
+    pool.query('SELECT * FROM $1', [tableName], (error, results) => {
         if (error) {
             throw error
         }
@@ -204,8 +264,16 @@ const getPSFormResults = (request, response) => {
 
 const getPSFormResultsPerUser = (request, response) => {
     const userId = request.params.userId
+    const resultsType = request.params.type
+    let tableName = ""
 
-    pool.query('SELECT * FROM view_psform_results where user_id = $1', [userId], (error, results) => {
+    if (resultsType == "c")
+        tableName = "view_psform_results"
+    else if (resultsType == "p")
+        tableName = "view_psform_partial_results"
+    else return
+
+    pool.query('SELECT * FROM $1 where user_id = $2', [tableName, userId], (error, results) => {
         if (error) {
             throw error
         }
@@ -223,7 +291,16 @@ const getPSFormResultsPerUser = (request, response) => {
 }
 
 const getUserFormResults = (request, response) => {
-    pool.query('SELECT * FROM view_userform_results', (error, results) => {
+    const resultsType = request.params.type
+    let tableName = ""
+
+    if (resultsType == "c")
+        tableName = "view_userform_results"
+    else if (resultsType == "p")
+        tableName = "view_userform_partial_results"
+    else return
+
+    pool.query('SELECT * FROM $1', [tableName], (error, results) => {
         if (error) {
             throw error
         }
@@ -242,8 +319,16 @@ const getUserFormResults = (request, response) => {
 
 const getUserFormResultsPerUser = (request, response) => {
     const userId = request.params.userId
+    const resultsType = request.params.type
+    let tableName = ""
 
-    pool.query('SELECT * FROM view_userform_results where user_id = $1', [userId], (error, results) => {
+    if (resultsType == "c")
+        tableName = "view_userform_results"
+    else if (resultsType == "p")
+        tableName = "view_userform_partial_results"
+    else return
+
+    pool.query('SELECT * FROM $1 where user_id = $2', [tableName, userId], (error, results) => {
         if (error) {
             throw error
         }
