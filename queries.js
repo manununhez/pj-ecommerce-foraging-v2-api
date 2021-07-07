@@ -74,7 +74,7 @@ const getMemoryTaskResult = (request, response) => {
         tableName = "view_visual_pattern_partial_results"
     else return
 
-    pool.query('SELECT * from $1', [tableName], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName, (error, results) => {
         if (error) {
             throw error
         }
@@ -103,7 +103,7 @@ const getMemoryTaskResultPerUser = (request, response) => {
         tableName = "view_visual_pattern_partial_results"
     else return
 
-    pool.query('SELECT * from $1 where user_id = $2', [tableName, userId], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
         if (error) {
             throw error
         }
@@ -131,7 +131,7 @@ const getBargainsResult = (request, response) => {
         tableName = "view_bargain_partial_results_complete"
     else return
 
-    pool.query('SELECT * from $1', [tableName], (error, results) => {
+    pool.query('SELECT * FROM $1', [tableName], (error, results) => {
         if (error) {
             throw error
         }
@@ -160,7 +160,7 @@ const getBargainsResultPerUser = (request, response) => {
         tableName = "view_bargain_partial_results_complete"
     else return
 
-    pool.query('SELECT * from $1 where user_id = $2', [tableName, userId], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
         if (error) {
             throw error
         }
@@ -188,7 +188,7 @@ const getBargainsResultPerStore = (request, response) => {
         tableName = "view_bargain_partial_results_per_store"
     else return
 
-    pool.query('SELECT * from $1', [tableName], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName, (error, results) => {
         if (error) {
             throw error
         }
@@ -217,7 +217,7 @@ const getBargainsResultPerStorePerUser = (request, response) => {
         tableName = "view_bargain_partial_results_per_store"
     else return
 
-    pool.query('SELECT * from $1 where user_id = $2', [tableName, userId], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
         if (error) {
             throw error
         }
@@ -245,7 +245,7 @@ const getPSFormResults = (request, response) => {
         tableName = "view_psform_partial_results"
     else return
 
-    pool.query('SELECT * FROM $1', [tableName], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName, (error, results) => {
         if (error) {
             throw error
         }
@@ -273,7 +273,7 @@ const getPSFormResultsPerUser = (request, response) => {
         tableName = "view_psform_partial_results"
     else return
 
-    pool.query('SELECT * FROM $1 where user_id = $2', [tableName, userId], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
         if (error) {
             throw error
         }
@@ -300,7 +300,7 @@ const getUserFormResults = (request, response) => {
         tableName = "view_userform_partial_results"
     else return
 
-    pool.query('SELECT * FROM $1', [tableName], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName, (error, results) => {
         if (error) {
             throw error
         }
@@ -328,7 +328,7 @@ const getUserFormResultsPerUser = (request, response) => {
         tableName = "view_userform_partial_results"
     else return
 
-    pool.query('SELECT * FROM $1 where user_id = $2', [tableName, userId], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
         if (error) {
             throw error
         }
