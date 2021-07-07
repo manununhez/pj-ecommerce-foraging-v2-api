@@ -67,12 +67,15 @@ const getAppTextData = (request, response) => {
 const getMemoryTaskResult = (request, response) => {
     const resultsType = request.params.type
     let tableName = ""
+    let fileName = ""
 
-    if (resultsType == "c")
+    if (resultsType == "c") {
         tableName = "view_visual_pattern_results"
-    else if (resultsType == "p")
+        fileName = 'memory_task_result.csv'
+    } else if (resultsType == "p") {
         tableName = "view_visual_pattern_partial_results"
-    else return
+        fileName = 'memory_task_partial_result.csv'
+    } else return
 
     pool.query('SELECT * FROM ' + tableName, (error, results) => {
         if (error) {
@@ -82,7 +85,7 @@ const getMemoryTaskResult = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('memory_task_result.csv');
+        response.attachment(fileName);
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -96,12 +99,15 @@ const getMemoryTaskResultPerUser = (request, response) => {
     const userId = request.params.userId
     const resultsType = request.params.type
     let tableName = ""
+    let fileName = ""
 
-    if (resultsType == "c")
+    if (resultsType == "c") {
         tableName = "view_visual_pattern_results"
-    else if (resultsType == "p")
+        fileName = 'memory_task_result_' + userId + '.csv'
+    } else if (resultsType == "p") {
         tableName = "view_visual_pattern_partial_results"
-    else return
+        fileName = 'memory_task_partial_result_' + userId + '.csv'
+    } else return
 
     pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
         if (error) {
@@ -111,7 +117,7 @@ const getMemoryTaskResultPerUser = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('memory_task_result_' + userId + '.csv');
+        response.attachment(fileName);
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -124,12 +130,15 @@ const getMemoryTaskResultPerUser = (request, response) => {
 const getBargainsResult = (request, response) => {
     const resultsType = request.params.type
     let tableName = ""
+    let fileName = ""
 
-    if (resultsType == "c")
+    if (resultsType == "c") {
         tableName = "view_bargain_results_complete"
-    else if (resultsType == "p")
+        fileName = 'bargains_result.csv'
+    } else if (resultsType == "p") {
         tableName = "view_bargain_partial_results_complete"
-    else return
+        fileName = 'bargains_partial_result.csv'
+    } else return
 
     pool.query('SELECT * FROM $1', [tableName], (error, results) => {
         if (error) {
@@ -139,7 +148,7 @@ const getBargainsResult = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('bargains_result.csv');
+        response.attachment(fileName);
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -153,12 +162,15 @@ const getBargainsResultPerUser = (request, response) => {
     const userId = request.params.userId
     const resultsType = request.params.type
     let tableName = ""
+    let fileName = ""
 
-    if (resultsType == "c")
+    if (resultsType == "c") {
         tableName = "view_bargain_results_complete"
-    else if (resultsType == "p")
+        fileName = 'bargains_result_' + userId + '.csv'
+    } else if (resultsType == "p") {
         tableName = "view_bargain_partial_results_complete"
-    else return
+        fileName = 'bargains_partial_result_' + userId + '.csv'
+    } else return
 
     pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
         if (error) {
@@ -168,7 +180,7 @@ const getBargainsResultPerUser = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('bargains_result_' + userId + '.csv');
+        response.attachment(fileName);
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -181,12 +193,15 @@ const getBargainsResultPerUser = (request, response) => {
 const getBargainsResultPerStore = (request, response) => {
     const resultsType = request.params.type
     let tableName = ""
+    let fileName = ""
 
-    if (resultsType == "c")
+    if (resultsType == "c") {
         tableName = "view_bargain_results_per_store"
-    else if (resultsType == "p")
+        fileName = 'bargains_result_per_store.csv'
+    } else if (resultsType == "p") {
         tableName = "view_bargain_partial_results_per_store"
-    else return
+        fileName = 'bargains_partial_result_per_store.csv'
+    } else return
 
     pool.query('SELECT * FROM ' + tableName, (error, results) => {
         if (error) {
@@ -196,7 +211,7 @@ const getBargainsResultPerStore = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('bargains_result_per_store.csv');
+        response.attachment(fileName);
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -210,12 +225,15 @@ const getBargainsResultPerStorePerUser = (request, response) => {
     const userId = request.params.userId
     const resultsType = request.params.type
     let tableName = ""
+    let fileName = ""
 
-    if (resultsType == "c")
+    if (resultsType == "c") {
         tableName = "view_bargain_results_per_store"
-    else if (resultsType == "p")
+        fileName = 'bargains_result_per_store_' + userId + '.csv'
+    } else if (resultsType == "p") {
         tableName = "view_bargain_partial_results_per_store"
-    else return
+        fileName = 'bargains_partial_result_per_store_' + userId + '.csv'
+    } else return
 
     pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
         if (error) {
@@ -225,7 +243,7 @@ const getBargainsResultPerStorePerUser = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('bargains_result_per_store_' + userId + '.csv');
+        response.attachment(fileName);
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -238,12 +256,15 @@ const getBargainsResultPerStorePerUser = (request, response) => {
 const getPSFormResults = (request, response) => {
     const resultsType = request.params.type
     let tableName = ""
+    let fileName = ""
 
-    if (resultsType == "c")
+    if (resultsType == "c") {
         tableName = "view_psform_results"
-    else if (resultsType == "p")
+        fileName = 'survey_result.csv'
+    } else if (resultsType == "p") {
         tableName = "view_psform_partial_results"
-    else return
+        fileName = 'survey_partial_result.csv'
+    } else return
 
     pool.query('SELECT * FROM ' + tableName, (error, results) => {
         if (error) {
@@ -252,7 +273,7 @@ const getPSFormResults = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('survey_result.csv');
+        response.attachment(fileName);
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -266,12 +287,15 @@ const getPSFormResultsPerUser = (request, response) => {
     const userId = request.params.userId
     const resultsType = request.params.type
     let tableName = ""
+    let fileName = ""
 
-    if (resultsType == "c")
+    if (resultsType == "c") {
         tableName = "view_psform_results"
-    else if (resultsType == "p")
+        fileName = 'survey_result_' + userId + '.csv'
+    } else if (resultsType == "p") {
         tableName = "view_psform_partial_results"
-    else return
+        fileName = 'survey_partial_result_' + userId + '.csv'
+    } else return
 
     pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
         if (error) {
@@ -280,7 +304,7 @@ const getPSFormResultsPerUser = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('survey_result_' + userId + '.csv');
+        response.attachment(fileName);
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -293,12 +317,15 @@ const getPSFormResultsPerUser = (request, response) => {
 const getUserFormResults = (request, response) => {
     const resultsType = request.params.type
     let tableName = ""
+    let fileName = ""
 
-    if (resultsType == "c")
+    if (resultsType == "c") {
         tableName = "view_userform_results"
-    else if (resultsType == "p")
+        fileName = 'demographic_result.csv'
+    } else if (resultsType == "p") {
         tableName = "view_userform_partial_results"
-    else return
+        fileName = 'demographic_partial_result.csv'
+    } else return
 
     pool.query('SELECT * FROM ' + tableName, (error, results) => {
         if (error) {
@@ -307,7 +334,7 @@ const getUserFormResults = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('demographic_result.csv');
+        response.attachment(fileName);
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
@@ -321,12 +348,15 @@ const getUserFormResultsPerUser = (request, response) => {
     const userId = request.params.userId
     const resultsType = request.params.type
     let tableName = ""
+    let fileName = ""
 
-    if (resultsType == "c")
+    if (resultsType == "c") {
         tableName = "view_userform_results"
-    else if (resultsType == "p")
+        fileName = 'demographic_result_' + userId + '.csv'
+    } else if (resultsType == "p") {
         tableName = "view_userform_partial_results"
-    else return
+        fileName = 'demographic_partial_result_' + userId + '.csv'
+    } else return
 
     pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
         if (error) {
@@ -335,7 +365,7 @@ const getUserFormResultsPerUser = (request, response) => {
         const jsonData = JSON.parse(JSON.stringify(results.rows));
 
         response.header('Content-Type', 'text/csv');
-        response.attachment('demographic_result_' + userId + '.csv');
+        response.attachment(fileName);
         fastcsv
             .write(jsonData, { headers: true })
             .pipe(response)
