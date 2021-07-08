@@ -17,7 +17,7 @@ const getUserInitialData = async (request, response) => {
     const version = request.params.version
 
     const experimentCount = await pool.query('SELECT * FROM view_participants_count')
-    const navScreens = await pool.query('SELECT * FROM view_screens_x_version where version_name=$1', [version])
+    const navScreens = await pool.query('SELECT * FROM view_screens_x_version WHERE version_name = $1', [version])
 
     const result = { experimentCount: experimentCount.rows, screens: navScreens.rows }
     // console.log(result)
@@ -56,7 +56,7 @@ const getPSFormData = (request, response) => {
 const getAppTextData = (request, response) => {
     const sex = request.params.sex
 
-    pool.query('SELECT * from view_text_x_screens WHERE sex = $1', [sex], (error, results) => {
+    pool.query('SELECT * FROM view_text_x_screens WHERE sex = $1', [sex], (error, results) => {
         if (error) {
             throw error
         }
@@ -109,7 +109,7 @@ const getMemoryTaskResultPerUser = (request, response) => {
         fileName = 'memory_task_partial_result_' + userId + '.csv'
     } else return
 
-    pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName + ' WHERE user_id = $1', [userId], (error, results) => {
         if (error) {
             throw error
         }
@@ -140,7 +140,7 @@ const getBargainsResult = (request, response) => {
         fileName = 'bargains_partial_result.csv'
     } else return
 
-    pool.query('SELECT * FROM $1', [tableName], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName, (error, results) => {
         if (error) {
             throw error
         }
@@ -172,7 +172,7 @@ const getBargainsResultPerUser = (request, response) => {
         fileName = 'bargains_partial_result_' + userId + '.csv'
     } else return
 
-    pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName + ' WHERE user_id = $1', [userId], (error, results) => {
         if (error) {
             throw error
         }
@@ -235,7 +235,7 @@ const getBargainsResultPerStorePerUser = (request, response) => {
         fileName = 'bargains_partial_result_per_store_' + userId + '.csv'
     } else return
 
-    pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName + ' WHERE user_id = $1', [userId], (error, results) => {
         if (error) {
             throw error
         }
@@ -297,7 +297,7 @@ const getPSFormResultsPerUser = (request, response) => {
         fileName = 'survey_partial_result_' + userId + '.csv'
     } else return
 
-    pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName + ' WHERE user_id = $1', [userId], (error, results) => {
         if (error) {
             throw error
         }
@@ -358,7 +358,7 @@ const getUserFormResultsPerUser = (request, response) => {
         fileName = 'demographic_partial_result_' + userId + '.csv'
     } else return
 
-    pool.query('SELECT * FROM ' + tableName + ' where user_id = $1', [userId], (error, results) => {
+    pool.query('SELECT * FROM ' + tableName + ' WHERE user_id = $1', [userId], (error, results) => {
         if (error) {
             throw error
         }
