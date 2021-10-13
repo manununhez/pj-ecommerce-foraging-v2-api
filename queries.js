@@ -18,8 +18,8 @@ const getUserInitialData = async (request, response) => {
 
     const experimentCount = await pool.query('SELECT * FROM view_participants_count')
     const navScreens = await pool.query('SELECT * FROM view_screens_x_version WHERE version_name = $1', [version])
-
-    const result = { experimentCount: experimentCount.rows, screens: navScreens.rows }
+    const participantsTotal = await pool.query('SELECT * FROM  view_participants_total')
+    const result = { experimentCount: experimentCount.rows, screens: navScreens.rows, participantsTotal: participantsTotal.rows }
     // console.log(result)
     response.status(200).json(result)
 }
