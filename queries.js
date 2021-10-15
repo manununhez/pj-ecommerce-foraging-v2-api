@@ -123,6 +123,25 @@ const getMemoryTaskResultPerUser = (request, response) => {
     })
 }
 
+const getParticipantsCountResult = (request, response) => {
+    pool.query('SELECT * FROM view_participants_count', (error, results) => {
+        if (error) {
+            throw error
+        }
+
+        const jsonData = JSON.parse(JSON.stringify(results.rows));
+
+        response.header('Content-Type', 'text/csv');
+        response.attachment(fileName);
+        fastcsv
+            .write(jsonData, { headers: true })
+            .pipe(response)
+            .on("finish", function () {
+                console.log("Write to CSV completed successfully!");
+            });
+    })
+}
+
 const getBargainsResult = (request, response) => {
     const resultsType = request.params.type
     let tableName = ""
@@ -481,6 +500,7 @@ module.exports = {
     getPSFormResultsPerUser,
     getUserFormResultsPerUser,
     getMemoryTaskResultPerUser,
+    getParticipantsCountResult,
     createPSForm,
     createVisualPattern,
     createUserInfo,
