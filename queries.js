@@ -130,6 +130,7 @@ const getParticipantsCountResult = (request, response) => {
         }
 
         const jsonData = JSON.parse(JSON.stringify(results.rows));
+        let fileName = 'participants_count_result.csv'
 
         response.header('Content-Type', 'text/csv');
         response.attachment(fileName);
