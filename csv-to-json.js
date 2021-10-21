@@ -42,7 +42,7 @@ const convertStores = (inputFilePath, outputFilePath) => {
             // var temp = {};
             //contains values which are separated by a comma in a line.
             var valuesArray = dataArray[i].split(",");
-
+            console.log(valuesArray)
             if (valuesArray[1] === '' && valuesArray[2] === '' && valuesArray[3] === '' && valuesArray[4] === '' && valuesArray[5] === '' && valuesArray[6] === '\r') {
                 feedback.push(valuesArray[0])
                 // console.log(valuesArray)
