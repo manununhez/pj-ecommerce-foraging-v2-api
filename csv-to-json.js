@@ -19,6 +19,7 @@ const convertLongStores = (request, response) => {
 }
 
 const convertStores = (inputFilePath, outputFilePath) => {
+    console.log("convertStores:")
     console.log(inputFilePath)
     console.log(outputFilePath)
     // ### Reading DATA from file
@@ -34,6 +35,7 @@ const convertStores = (inputFilePath, outputFilePath) => {
             console.log(err)
             return err;
         }
+        console.log(data)
         //The following line will split the csv file line by line and store each of it in the vraiable dataArray.
         var dataArray = data.split("\n");
 
