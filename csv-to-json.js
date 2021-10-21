@@ -19,6 +19,8 @@ const convertLongStores = (request, response) => {
 }
 
 const convertStores = (inputFilePath, outputFilePath) => {
+    console.log(inputFilePath)
+    console.log(outputFilePath)
     // ### Reading DATA from file
     var filePath = inputFilePath
 
