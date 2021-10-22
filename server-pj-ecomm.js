@@ -62,7 +62,10 @@ app.get('/convert-long-stores', task.convertLongStores)
 app.get('/stores-long', fromFile.getLongStores);
 app.get('/stores-short', fromFile.getShortStores);
 
-app.post('/upload-stores', upload.uploadStores)
+app.post('/upload-stores', function (req, res) {
+    req.setTimeout(500000);
+    upload.uploadStores(req, res);
+});
 /**
  * SAVE DATA
  */
