@@ -36,10 +36,12 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 /**
  * GET DATA
  */
+//Initial data
 app.get('/versions', db.getVersions)
-app.get('/psform', db.getPSFormData)
-app.get('/apptext', db.getAppTextData)
+app.get('/psform/:sex', db.getPSFormData)
+app.get('/apptext/:sex', db.getAppTextData)
 app.get('/inituserdata/:version', db.getUserInitialData)
+
 //Complete results
 app.get('/bargains-result/:type', db.getBargainsResult)
 app.get('/bargains-result-per-store/:type', db.getBargainsResultPerStore)

@@ -43,7 +43,8 @@ const getUsers = (request, response) => {
 }
 
 const getPSFormData = (request, response) => {
-    pool.query('SELECT * FROM view_psform', (error, results) => {
+    const sex = request.params.sex
+    pool.query('SELECT * FROM view_psform WHERE sex = $1', [sex], (error, results) => {
         if (error) {
             throw error
         }
@@ -52,7 +53,8 @@ const getPSFormData = (request, response) => {
 }
 
 const getAppTextData = (request, response) => {
-    pool.query('SELECT * FROM view_text_x_screens', (error, results) => {
+    const sex = request.params.sex
+    pool.query('SELECT * FROM view_text_x_screens WHERE sex = $1', [sex], (error, results) => {
         if (error) {
             throw error
         }
