@@ -97,6 +97,7 @@ const uploadStores = (req, res) => {
         data: data
     });
 
+	console.log("Update JSON files>>>>>>>>>>>>>>>")
     //Update JSON files
     task.convertStores(STORES_SHORT_CSV_PATH, STORES_SHORT_JSON_PATH)
     task.convertStores(STORES_LONG_CSV_PATH, STORES_LONG_JSON_PATH)
