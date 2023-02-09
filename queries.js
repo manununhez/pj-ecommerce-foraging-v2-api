@@ -408,7 +408,7 @@ const createPSForm = (request, response) => {
 const createUserBargains = (request, response) => {
     const data = request.body
 
-    pool.query(format('INSERT INTO results_user_bargains (user_id, store_number, type_task, enter_store_timestamp, leave_store_timestamp, products_seen, last_product_displayed, bargain_taken_number, bargain_wrongly_taken_number, bargain_shown_number, round, total_bargains_store) VALUES %L Returning *', data), (error, results) => {
+    pool.query(format('INSERT INTO results_user_bargains (user_id, store_number, type_task, enter_store_timestamp, leave_store_timestamp, products_seen, last_product_displayed, bargain_taken_number, bargain_wrongly_taken_number, bargain_shown_number, round, total_bargains_store, max_empty_belt, last_empty_belt_displayed_before_change_store, display_empty_belt_count) VALUES %L Returning *', data), (error, results) => {
         if (error) {
             throw error
         }
@@ -473,7 +473,7 @@ const createUserLogTime = (request, response) => {
 const createUserGeneraldata = (request, response) => {
     const data = request.body
 
-    const query = format('INSERT INTO results_user_general_data (column1, column2, column3, column4, column5, column6, column7,column8, column9, column10, column11, column12, column13) VALUES %L Returning *', data);
+    const query = format('INSERT INTO results_user_general_data (column1, column2, column3, column4, column5, column6, column7,column8, column9, column10, column11, column12, column13, column14, column15, column16) VALUES %L Returning *', data);
 
     // console.log(query)
 
